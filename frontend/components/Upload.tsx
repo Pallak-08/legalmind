@@ -21,11 +21,10 @@ export function Upload({ onUploaded }: { onUploaded: (r: UploadResponse) => void
   };
 
   return (
-    <div className="border-2 border-dashed border-ink/20 rounded-lg p-12 text-center bg-white/40">
-      <h2 className="font-serif text-2xl mb-2">Upload a contract</h2>
-      <p className="text-ink/60 mb-6 text-sm">PDF or DOCX, up to 20 MB. Nothing leaves your machine.</p>
-      <label className="inline-block cursor-pointer bg-accent text-parchment px-5 py-2 rounded hover:bg-accent/90 transition">
-        {busy ? "Indexing…" : "Choose file"}
+    <div className="flex flex-col sm:flex-row gap-3 items-start">
+      <label className="inline-flex items-center gap-2 cursor-pointer bg-ink text-parchment px-6 py-3 rounded-full hover:bg-ink/85 transition text-sm font-medium">
+        <span className="w-1.5 h-1.5 rounded-full bg-parchment" />
+        {busy ? "Indexing your contract…" : "Upload contract"}
         <input
           type="file"
           accept=".pdf,.docx,.doc"
@@ -34,7 +33,15 @@ export function Upload({ onUploaded }: { onUploaded: (r: UploadResponse) => void
           onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
         />
       </label>
-      {err && <p className="mt-4 text-sm text-red-700">{err}</p>}
+      <a
+        href="https://github.com/Pallak-08/legalmind"
+        target="_blank"
+        rel="noreferrer"
+        className="inline-flex items-center px-6 py-3 rounded-full border border-ink/30 hover:border-ink hover:bg-ink/5 transition text-sm font-medium"
+      >
+        View source
+      </a>
+      {err && <p className="text-sm text-accent w-full sm:w-auto sm:ml-2 sm:self-center">{err}</p>}
     </div>
   );
 }

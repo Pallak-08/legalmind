@@ -5,12 +5,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#0f1419",
-        parchment: "#faf8f3",
-        accent: "#7c2d12",
+        ink: "#1a1410",
+        parchment: "#f4ebd9",
+        accent: "#9c3a2e",
+        rust: "#b8553e",
+        oak: "#5c3a1f",
+        cream: "#ebe0c8",
       },
       fontFamily: {
-        serif: ["Georgia", "ui-serif", "serif"],
+        serif: ['"Cormorant Garamond"', "Georgia", "ui-serif", "serif"],
+        sans: ['"Inter"', "ui-sans-serif", "system-ui", "sans-serif"],
+      },
+      letterSpacing: {
+        widest2: "0.25em",
       },
     },
   },
