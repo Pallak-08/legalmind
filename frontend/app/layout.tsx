@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "LegalMind — Ask any contract",
+  title: "LegalMind: Ask any contract",
   description: "Upload a contract. Ask plain-english questions. Get answers with exact clause citations.",
 };
 

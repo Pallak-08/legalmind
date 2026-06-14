@@ -1,7 +1,7 @@
-"""ChromaDB-backed vector store with a thin interface.
+"""ChromaDB vector store behind a thin Protocol.
 
-Why the interface: every method goes through `VectorStore` so swapping to
-Pinecone is a single class addition + an env switch — no caller changes.
+Every method goes through `VectorStore` so swapping to Pinecone or
+another backend is one class addition plus an env switch. No caller changes.
 """
 from __future__ import annotations
 

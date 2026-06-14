@@ -1,13 +1,8 @@
-"""Clause-aware chunker.
+"""Turn parsed clauses into embeddable chunks while preserving section metadata.
 
-Each output chunk carries the *exact* clause metadata from the parser, so when
-the LLM cites "Section 5.3" we know it's a real section number — not invented.
-
-Strategy:
-  - One short clause -> one chunk.
-  - Long clauses -> overlapping windows, all carrying the same section metadata.
-  - We do NOT merge across clauses. Merging would muddy citations: the model
-    could grab text from clause A while citing clause B.
+One short clause becomes one chunk. Long clauses become overlapping windows
+that all carry the same section. We never merge across clauses: doing so
+would let the LLM pull text from one clause while citing another.
 """
 from __future__ import annotations
 
@@ -20,7 +15,7 @@ from app.services.parser import RawClause
 # We leave headroom for the section/title prefix we prepend.
 MAX_CHARS = 1800
 OVERLAP_CHARS = 200
-MIN_CHUNK_CHARS = 20  # drop dead-tiny fragments but keep short legit clauses
+MIN_CHUNK_CHARS = 20  # drop dead-tiny fragments while keeping short legit clauses
 
 
 @dataclass
@@ -28,7 +23,7 @@ class Chunk:
     chunk_id: str           # "<contract_id>:<seq>"
     section: str
     title: str | None
-    text: str               # what gets embedded — includes the section prefix
+    text: str               # what gets embedded; includes the section prefix
     raw_text: str           # original clause body, used in citations
     page: int | None
     char_start: int

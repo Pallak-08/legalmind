@@ -1,4 +1,4 @@
-"""Sentence-transformers wrapper. Loaded lazily so the server boots fast."""
+"""Sentence-transformers wrapper. Lazy-loaded so the server boots fast."""
 from __future__ import annotations
 
 from functools import lru_cache

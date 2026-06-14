@@ -26,7 +26,7 @@ def _warmup_models() -> None:
         from app.services.vectorstore import SearchResult
         rerank("warmup", [SearchResult("0", "0", None, "warmup text", None, 0.0)], 1)
         logger.info("Models warm.")
-    except Exception:  # noqa: BLE001 — warmup must not crash the server
+    except Exception:  # noqa: BLE001  warmup must not crash the server
         logger.exception("Model warmup failed; will retry on first request.")
 
 

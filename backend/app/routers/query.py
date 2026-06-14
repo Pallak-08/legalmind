@@ -1,4 +1,4 @@
-"""POST /query — ask a question about a previously-uploaded contract."""
+"""POST /query: ask a question about a previously-uploaded contract."""
 from __future__ import annotations
 
 from fastapi import APIRouter, HTTPException

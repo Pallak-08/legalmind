@@ -1,8 +1,7 @@
-"""In-memory BM25 keyword index, per contract.
+"""In-memory BM25 keyword index, one per contract.
 
-Built lazily on first query for a given contract by replaying its chunks from
-the vector store. That way we have one source of truth (Chroma) for persistence
-and don't have to manage a second on-disk index.
+Built lazily on first query by replaying chunks from the vector store. Keeps
+Chroma as the single source of truth for persistence; no second on-disk index.
 """
 from __future__ import annotations
 

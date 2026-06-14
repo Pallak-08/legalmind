@@ -1,4 +1,4 @@
-"""POST /upload — accept PDF/DOCX, parse → chunk → embed → index."""
+"""POST /upload: accept PDF or DOCX, parse, chunk, embed, index."""
 from __future__ import annotations
 
 import tempfile
@@ -57,7 +57,7 @@ async def upload_contract(file: UploadFile = File(...)) -> UploadResponse:
 
     embeddings = embed_texts([c.text for c in chunks])
     get_vector_store().add_chunks(contract_id, chunks, embeddings)
-    # New contract — make sure BM25 won't serve a stale cached index for this id.
+    # New contract: make sure BM25 won't serve a stale cached index for this id.
     get_bm25_store().invalidate(contract_id)
 
     return UploadResponse(

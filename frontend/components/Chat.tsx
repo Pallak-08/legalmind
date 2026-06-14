@@ -84,7 +84,7 @@ export function Chat({ contract }: { contract: UploadResponse }) {
       <div className="space-y-8">
         {turns.map((t, i) => (
           <div key={i} className="space-y-3">
-            <div className="font-serif text-lg italic text-ink/70">— {t.question}</div>
+            <div className="font-serif text-lg italic text-ink/70">{t.question}</div>
             {t.error && <p className="text-red-700 text-sm">{t.error}</p>}
             {t.answer && (
               <div className="bg-white rounded-lg p-4 border border-ink/10 font-serif leading-relaxed whitespace-pre-wrap">

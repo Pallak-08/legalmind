@@ -1,10 +1,8 @@
-"""Contract parser: extracts text and clause-level structure from PDF/DOCX files.
+"""Parse a PDF or DOCX contract into clause-level structure.
 
-The whole point of this module is that legal documents are *structured* — they
-have Articles, Sections, numbered clauses, and lettered subclauses. A naive
-text-splitter will shred that structure, which means citations later will be
-fake ("see section 5" when there's no section 5). We detect structure here so
-the chunker and the LLM can both cite real clause numbers.
+Detects Articles, Sections, decimal clauses (5.3.1), lettered subclauses
+(a)(b)(c), and ALL-CAPS headings. The section number travels as metadata
+so later citations match real clauses rather than invented ones.
 """
 from __future__ import annotations
 
@@ -16,17 +14,17 @@ import pdfplumber
 from docx import Document
 
 
-# Patterns are ordered most-specific first. The first match on a line wins.
-# Each pattern has two capture groups: (marker, body_on_same_line).
-# The body group is just used to confirm this is a real clause (not a stray
-# numeric line); the actual short "title" is extracted from it separately.
+# Ordered most-specific first. First match on a line wins.
+# Each pattern has two groups: (marker, body_on_same_line). The body group
+# is mainly to confirm this is a real clause (not a stray numeric line);
+# a short display title is extracted from it separately.
 _CLAUSE_PATTERNS: list[tuple[str, re.Pattern[str]]] = [
     # ARTICLE III - TERMINATION  /  Article 5: Confidentiality
     ("article", re.compile(r"^\s*ARTICLE\s+([IVXLCDM]+|\d+)\b\.?\s*[-:.]?\s*(.*)$", re.IGNORECASE)),
     # SECTION 5.3 Title  /  Section 12: Indemnification
     ("section", re.compile(r"^\s*SECTION\s+(\d+(?:\.\d+)*)\b\.?\s*[-:.]?\s*(.*)$", re.IGNORECASE)),
     # Multi-part decimal: 5.3 Title, 1.1 "Defined Term"..., 7.2.1 Subclause...
-    # No upper bound on body length — DOCX paragraphs put full clause text on one line.
+    # No upper bound on body length: DOCX paragraphs put full clause text on one line.
     ("decimal_sub", re.compile(r"^\s*(\d+(?:\.\d+){1,4})\s+(.+)$")),
     # Top-level decimal: 1. Title, 12. Indemnification. Period required to avoid
     # matching stray numeric lines like "1 of 2" in a page footer.
@@ -37,7 +35,7 @@ _CLAUSE_PATTERNS: list[tuple[str, re.Pattern[str]]] = [
     ("caps_heading", re.compile(r"^\s*([A-Z][A-Z0-9 &/\-,]{4,80})\s*$")),
 ]
 
-# Words that often appear in ALL-CAPS but aren't real clause headings.
+# Words that often appear in ALL-CAPS but are not real clause headings.
 _CAPS_BLOCKLIST = {"WHEREAS", "NOW THEREFORE", "WITNESSETH", "IN WITNESS WHEREOF"}
 
 
@@ -204,7 +202,7 @@ def _segment_clauses(
             }
         elif current:
             current["text"] += line
-        # Pre-amble (text before the first marker) is dropped — it's usually
+        # Pre-amble (text before the first marker) is dropped; usually
         # recitals, parties, and date, which we capture as the "Preamble" clause:
         elif line.strip():
             current = {

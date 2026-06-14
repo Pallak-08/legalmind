@@ -28,8 +28,8 @@ Hard rules:
 4. If multiple clauses are relevant, cite each one.
 5. Quote short phrases from the contract when it adds precision. Do not invent
    text that isn't in the clauses.
-6. Be concise. Lawyers and non-lawyers will read this — favor plain English, but
-   never sacrifice precision for friendliness.
+6. Be concise. Lawyers and non-lawyers will read this. Favor plain English,
+   but never sacrifice precision for friendliness.
 """
 
 
@@ -42,7 +42,7 @@ class AnswerResult:
 def _reciprocal_rank_fusion(
     rankings: list[list[SearchResult]], k: int = 60
 ) -> list[SearchResult]:
-    """Merge two ranked lists by reciprocal rank — robust to score-scale mismatch."""
+    """Merge ranked lists by reciprocal rank. Robust to score-scale mismatch."""
     fused: dict[str, tuple[float, SearchResult]] = {}
     for ranking in rankings:
         for rank, item in enumerate(ranking):
@@ -76,7 +76,7 @@ def answer_question(contract_id: str, question: str) -> AnswerResult:
     vstore = get_vector_store()
     bm25 = get_bm25_store()
 
-    # Stage 1 — hybrid retrieval
+    # Stage 1: hybrid retrieval
     q_vec = embed_query(question)
     dense_hits = vstore.search(contract_id, q_vec, settings.top_k_dense)
     sparse_hits = bm25.search(contract_id, question, settings.top_k_bm25)
@@ -88,10 +88,10 @@ def answer_question(contract_id: str, question: str) -> AnswerResult:
             citations=[],
         )
 
-    # Stage 2 — cross-encoder rerank, keep top_k_rerank
+    # Stage 2: cross-encoder rerank, keep top_k_rerank
     top_clauses = rerank(question, fused[: max(settings.top_k_dense, settings.top_k_bm25)], settings.top_k_rerank)
 
-    # Stage 3 — Groq generation with strict citation prompt
+    # Stage 3: Groq generation with strict citation prompt
     user_prompt = _build_user_prompt(question, top_clauses)
     response = _groq().chat.completions.create(
         model=settings.groq_model,
@@ -104,8 +104,8 @@ def answer_question(contract_id: str, question: str) -> AnswerResult:
     )
     answer = response.choices[0].message.content or ""
 
-    # Only return citations actually referenced in the answer text — keeps the
-    # UI clean. If the model cited none (e.g., refused), return all candidates
+    # Only return citations actually referenced in the answer text. Keeps the
+    # UI clean. If the model cited none (e.g. refused), return all candidates
     # so the user can see what we searched.
     cited = [c for c in top_clauses if c.section in answer or (c.title and c.title in answer)]
     return AnswerResult(answer=answer.strip(), citations=cited or top_clauses)

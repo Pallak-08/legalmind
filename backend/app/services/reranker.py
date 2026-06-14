@@ -1,9 +1,8 @@
-"""Cross-encoder reranker (BGE).
+"""BGE cross-encoder reranker.
 
-A cross-encoder reads the (query, passage) pair jointly and scores relevance —
-much more accurate than the bi-encoder used for first-stage retrieval, but too
-slow to run on every chunk. So: retrieve broadly with embeddings+BM25, then
-rerank the top ~30 with this.
+Reads the (query, passage) pair jointly. More accurate than the bi-encoder
+used for first-stage retrieval, but too slow to run on every chunk. We
+retrieve broadly with embeddings + BM25, then rerank the top 30 with this.
 """
 from __future__ import annotations
 
@@ -28,7 +27,7 @@ def rerank(query: str, candidates: list[SearchResult], top_k: int) -> list[Searc
     ranked = sorted(zip(candidates, scores), key=lambda x: x[1], reverse=True)
     out: list[SearchResult] = []
     for cand, score in ranked[:top_k]:
-        # Replace score with the reranker's confidence — the value the user sees.
+        # Replace score with the reranker confidence. This is what the UI shows.
         out.append(
             SearchResult(
                 chunk_id=cand.chunk_id,

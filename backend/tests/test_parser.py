@@ -29,15 +29,15 @@ def test_extracts_top_level_sections(nda_path):
 def test_extracts_decimal_subsections(nda_path):
     parsed = parse_contract(nda_path)
     sections = {c.section for c in parsed.clauses}
-    # Section 5 has 5.1, 5.2, 5.3 — these are the canonical "term" clauses.
+    # Section 5 has 5.1, 5.2, 5.3, the canonical "term" clauses.
     assert any("5.1" in s for s in sections)
     assert any("5.2" in s for s in sections)
     assert any("5.3" in s for s in sections)
 
 
 def test_extracts_quoted_defined_terms(nda_path):
-    """Section 1.1 starts with `"Confidential Information"` — the title leads
-    with a quote, not a capital letter. Regex must accept that."""
+    """Section 1.1 starts with `"Confidential Information"`. Title leads with
+    a quote, not a capital letter. Regex must accept that."""
     parsed = parse_contract(nda_path)
     sections = {c.section for c in parsed.clauses}
     assert any("1.1" in s for s in sections)
@@ -45,8 +45,8 @@ def test_extracts_quoted_defined_terms(nda_path):
 
 
 def test_extracts_section_titles(nda_path):
-    """Section 1 has 'DEFINITIONS' as its inline title — captured in clause.title,
-    not the section number itself."""
+    """Section 1 has 'DEFINITIONS' as its inline title. It belongs in
+    clause.title, not the section number itself."""
     parsed = parse_contract(nda_path)
     titles = [c.title or "" for c in parsed.clauses]
     assert any("DEFINITIONS" in t.upper() for t in titles)

@@ -6,7 +6,7 @@ chunk size, retrieval k, or the rerank model.
 
 Run:  python -m tests.eval
 
-Doesn't require a Groq key — only retrieval is measured.
+Does not require a Groq key. Only retrieval is measured.
 """
 from __future__ import annotations
 
@@ -86,7 +86,7 @@ def run() -> int:
         hits_at_5 += int(top5_hit)
         rerank_hits += int(rerank_hit)
 
-        top_section = ranked[0].section if ranked else "—"
+        top_section = ranked[0].section if ranked else "(none)"
         flag = "PASS" if rerank_hit else "MISS"
         print(f"  [{flag}] expected={case.expected_sections}  top1={top_section}  Q='{case.question[:60]}'")
 
