@@ -3,6 +3,9 @@
 AI-powered Q&A over legal contracts. Upload a PDF or DOCX, ask plain-english
 questions, get answers with **exact clause citations**.
 
+**Live demo:** <https://legalmind-production-76f7.up.railway.app>
+**API:** <https://legalmind-production-b9a9.up.railway.app/docs>
+
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
 │  PDF / DOCX  ──▶  Parser     ──▶  Clause-aware chunker                  │
