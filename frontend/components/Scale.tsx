@@ -73,78 +73,78 @@ export function Scale({ className = "" }: { className?: string }) {
       <path d="M 290 138 Q 300 122 310 138" fill="none" stroke="#5b3517" strokeWidth="2" />
       <circle cx="300" cy="122" r="5" fill="url(#finial)" />
 
-      {/* beam: gently arched at the top, tapered ends, decorative tips */}
+      {/* beam: straight horizontal wooden bar with tapered ends. Balanced. */}
       <path
         d="
-          M 55 155
-          Q 80 110 110 110
-          L 490 110
-          Q 520 110 545 155
-          Q 540 167 510 142
-          L 90 142
-          Q 60 167 55 155 Z
+          M 90 135
+          L 510 135
+          Q 535 135 540 152
+          Q 535 155 510 148
+          L 90 148
+          Q 65 155 60 152
+          Q 65 135 90 135 Z
         "
         fill="url(#woodH)"
       />
       <path
-        d="M 110 110 L 490 110 L 490 116 L 110 116 Z"
+        d="M 90 135 L 510 135 L 510 140 L 90 140 Z"
         fill="#3a1f0c"
-        opacity="0.35"
+        opacity="0.3"
       />
 
-      {/* beam end finials (decorative balls at each tip) */}
-      <circle cx="55" cy="155" r="12" fill="url(#finial)" />
-      <circle cx="52" cy="152" r="3" fill="#e9c694" opacity="0.6" />
-      <circle cx="545" cy="155" r="12" fill="url(#finial)" />
-      <circle cx="542" cy="152" r="3" fill="#e9c694" opacity="0.6" />
+      {/* beam end finials, directly above each bowl */}
+      <circle cx="120" cy="142" r="11" fill="url(#finial)" />
+      <circle cx="117" cy="139" r="3" fill="#e9c694" opacity="0.6" />
+      <circle cx="480" cy="142" r="11" fill="url(#finial)" />
+      <circle cx="477" cy="139" r="3" fill="#e9c694" opacity="0.6" />
 
-      {/* small ring hooks where chains attach */}
-      <circle cx="55" cy="172" r="4" fill="none" stroke="#2a1a0c" strokeWidth="1.5" />
-      <circle cx="545" cy="172" r="4" fill="none" stroke="#2a1a0c" strokeWidth="1.5" />
+      {/* small ring hooks where chains attach (directly under finials) */}
+      <circle cx="120" cy="160" r="4" fill="none" stroke="#2a1a0c" strokeWidth="1.5" />
+      <circle cx="480" cy="160" r="4" fill="none" stroke="#2a1a0c" strokeWidth="1.5" />
 
-      {/* left chains: three strands converging to bowl rim */}
-      <line x1="55" y1="176" x2="100" y2="350" stroke="#2a1a0c" strokeWidth="1.5" />
-      <line x1="55" y1="176" x2="155" y2="350" stroke="#2a1a0c" strokeWidth="1.5" />
-      <line x1="55" y1="176" x2="210" y2="350" stroke="#2a1a0c" strokeWidth="1.5" />
+      {/* left chains: three nearly vertical strands forming a slight cone to the bowl rim */}
+      <line x1="120" y1="164" x2="80" y2="345" stroke="#2a1a0c" strokeWidth="1.5" />
+      <line x1="120" y1="164" x2="120" y2="345" stroke="#2a1a0c" strokeWidth="1.5" />
+      <line x1="120" y1="164" x2="160" y2="345" stroke="#2a1a0c" strokeWidth="1.5" />
 
-      {/* right chains */}
-      <line x1="545" y1="176" x2="500" y2="350" stroke="#2a1a0c" strokeWidth="1.5" />
-      <line x1="545" y1="176" x2="445" y2="350" stroke="#2a1a0c" strokeWidth="1.5" />
-      <line x1="545" y1="176" x2="390" y2="350" stroke="#2a1a0c" strokeWidth="1.5" />
+      {/* right chains, mirrored */}
+      <line x1="480" y1="164" x2="440" y2="345" stroke="#2a1a0c" strokeWidth="1.5" />
+      <line x1="480" y1="164" x2="480" y2="345" stroke="#2a1a0c" strokeWidth="1.5" />
+      <line x1="480" y1="164" x2="520" y2="345" stroke="#2a1a0c" strokeWidth="1.5" />
 
-      {/* left bowl */}
-      <ellipse cx="155" cy="355" rx="85" ry="10" fill="#2a1606" />
-      <ellipse cx="155" cy="352" rx="83" ry="8" fill="url(#woodV)" />
+      {/* left bowl, centered directly under the left beam tip */}
+      <ellipse cx="120" cy="350" rx="80" ry="10" fill="#2a1606" />
+      <ellipse cx="120" cy="347" rx="78" ry="8" fill="url(#woodV)" />
       <path
-        d="M 70 355 Q 155 450 240 355 Z"
+        d="M 40 350 Q 120 440 200 350 Z"
         fill="url(#bowl)"
         stroke="#2a1606"
         strokeWidth="1"
       />
-      <ellipse cx="155" cy="358" rx="80" ry="6" fill="#3a1f0c" opacity="0.4" />
+      <ellipse cx="120" cy="353" rx="75" ry="6" fill="#3a1f0c" opacity="0.4" />
 
-      {/* right bowl */}
-      <ellipse cx="445" cy="355" rx="85" ry="10" fill="#2a1606" />
-      <ellipse cx="445" cy="352" rx="83" ry="8" fill="url(#woodV)" />
+      {/* right bowl, centered directly under the right beam tip */}
+      <ellipse cx="480" cy="350" rx="80" ry="10" fill="#2a1606" />
+      <ellipse cx="480" cy="347" rx="78" ry="8" fill="url(#woodV)" />
       <path
-        d="M 360 355 Q 445 450 530 355 Z"
+        d="M 400 350 Q 480 440 560 350 Z"
         fill="url(#bowl)"
         stroke="#2a1606"
         strokeWidth="1"
       />
-      <ellipse cx="445" cy="358" rx="80" ry="6" fill="#3a1f0c" opacity="0.4" />
+      <ellipse cx="480" cy="353" rx="75" ry="6" fill="#3a1f0c" opacity="0.4" />
 
       {/* red ball on left bowl: the question */}
-      <circle cx="155" cy="325" r="32" fill="url(#redBall)" />
-      <ellipse cx="143" cy="312" rx="10" ry="5" fill="#f4a890" opacity="0.6" />
+      <circle cx="120" cy="320" r="32" fill="url(#redBall)" />
+      <ellipse cx="108" cy="308" rx="10" ry="5" fill="#f4a890" opacity="0.6" />
 
       {/* three darker balls on right bowl: the cited clauses */}
-      <circle cx="410" cy="333" r="22" fill="url(#darkBall)" />
-      <circle cx="445" cy="320" r="24" fill="url(#darkBall)" />
-      <circle cx="484" cy="333" r="22" fill="url(#darkBall)" />
-      <ellipse cx="403" cy="325" rx="5" ry="2.5" fill="#c08e57" opacity="0.5" />
-      <ellipse cx="438" cy="312" rx="5" ry="2.5" fill="#c08e57" opacity="0.5" />
-      <ellipse cx="477" cy="325" rx="5" ry="2.5" fill="#c08e57" opacity="0.5" />
+      <circle cx="445" cy="328" r="22" fill="url(#darkBall)" />
+      <circle cx="480" cy="315" r="24" fill="url(#darkBall)" />
+      <circle cx="519" cy="328" r="22" fill="url(#darkBall)" />
+      <ellipse cx="438" cy="320" rx="5" ry="2.5" fill="#c08e57" opacity="0.5" />
+      <ellipse cx="473" cy="307" rx="5" ry="2.5" fill="#c08e57" opacity="0.5" />
+      <ellipse cx="512" cy="320" rx="5" ry="2.5" fill="#c08e57" opacity="0.5" />
     </svg>
   );
 }
